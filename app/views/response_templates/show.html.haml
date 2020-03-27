@@ -5,7 +5,8 @@
   = @response_template.name
 %p
   %b Body:
-  = @response_template.body
+  %pre
+    = safe_render_json(@response_template.body)
 
 = link_to 'Edit', edit_response_template_path(@response_template)
 \|

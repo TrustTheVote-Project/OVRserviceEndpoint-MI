@@ -4,7 +4,6 @@
   %thead
     %tr
       %th Name
-      %th Body
       %th Code
       %th
       %th
@@ -14,7 +13,6 @@
     - @response_templates.each do |response_template|
       %tr
         %td= response_template.name
-        %td= response_template.body
         %td= link_to 'Show', response_template
         %td= link_to 'Edit', edit_response_template_path(response_template)
         %td= link_to 'Destroy', response_template, method: :delete, data: { confirm: 'Are you sure?' }
