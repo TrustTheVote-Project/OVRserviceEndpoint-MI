@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
   resources :response_rules
   resources :response_templates
   match "*_", to: 'customized_response#get', via: [:get, :post]
