@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @response_template.name
+%p
+  %b Body:
+  = @response_template.body
+%p
+  %b Code:
+  = @response_template.code
+
+= link_to 'Edit', edit_response_template_path(@response_template)
+\|
+= link_to 'Back', response_templates_path

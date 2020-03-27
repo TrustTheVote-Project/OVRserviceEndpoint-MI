@@ -1,0 +1,19 @@
+= form_for @response_template do |f|
+  - if @response_template.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@response_template.errors.count, "error")} prohibited this response_template from being saved:"
+      %ul
+        - @response_template.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :body
+    = f.text_area :body
+  .field
+    = f.label :code
+    = f.number_field :code
+  .actions
+    = f.submit 'Save'

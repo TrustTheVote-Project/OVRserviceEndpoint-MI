@@ -1,0 +1,25 @@
+%h1 Listing response_templates
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Body
+      %th Code
+      %th
+      %th
+      %th
+
+  %tbody
+    - @response_templates.each do |response_template|
+      %tr
+        %td= response_template.name
+        %td= response_template.body
+        %td= response_template.code
+        %td= link_to 'Show', response_template
+        %td= link_to 'Edit', edit_response_template_path(response_template)
+        %td= link_to 'Destroy', response_template, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Response template', new_response_template_path

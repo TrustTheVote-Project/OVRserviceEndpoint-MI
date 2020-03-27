@@ -1,0 +1,2 @@
+class ResponseTemplate < ApplicationRecord
+end
