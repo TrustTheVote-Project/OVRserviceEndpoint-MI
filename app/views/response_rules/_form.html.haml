@@ -14,7 +14,7 @@
     = f.text_field :path
   .field
     = f.label :response_template
-    = f.select :response_template_id, ResponseTemplate.pluck(:name, :id)
+    = f.select :response_template_id, ResponseTemplate.order(:name).pluck(:name, :id)
   .field
     = f.label :response_code
     = f.number_field :response_code
