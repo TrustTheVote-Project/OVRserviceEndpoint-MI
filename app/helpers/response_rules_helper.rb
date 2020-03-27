@@ -1,0 +1,2 @@
+module ResponseRulesHelper
+end

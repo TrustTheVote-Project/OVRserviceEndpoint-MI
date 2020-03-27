@@ -69,6 +69,6 @@ class ResponseTemplatesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def response_template_params
-      params.require(:response_template).permit(:name, :body, :code)
+      params.require(:response_template).permit(:name, :body)
     end
 end

@@ -1,0 +1,33 @@
+%h1 Listing response_rules
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Path
+      %th Response template
+      %th Response code
+      %th Conditions
+      %th Sleep
+      %th Raise error
+      %th
+      %th
+      %th
+
+  %tbody
+    - @response_rules.each do |response_rule|
+      %tr
+        %td= response_rule.name
+        %td= response_rule.path
+        %td= link_to response_rule.response_template.name, response_rule.response_template
+        %td= response_rule.response_code
+        %td= response_rule.conditions
+        %td= response_rule.sleep
+        %td= response_rule.raise_error
+        %td= link_to 'Show', response_rule
+        %td= link_to 'Edit', edit_response_rule_path(response_rule)
+        %td= link_to 'Destroy', response_rule, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Response rule', new_response_rule_path

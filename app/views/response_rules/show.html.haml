@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @response_rule.name
+%p
+  %b Path:
+  = @response_rule.path
+%p
+  %b Response template:
+  = @response_rule.response_template
+%p
+  %b Response code:
+  = @response_rule.response_code
+%p
+  %b Conditions:
+  = @response_rule.conditions
+%p
+  %b Sleep:
+  = @response_rule.sleep
+%p
+  %b Raise error:
+  = @response_rule.raise_error
+
+= link_to 'Edit', edit_response_rule_path(@response_rule)
+\|
+= link_to 'Back', response_rules_path

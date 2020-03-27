@@ -1,0 +1,31 @@
+= form_for @response_rule do |f|
+  - if @response_rule.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@response_rule.errors.count, "error")} prohibited this response_rule from being saved:"
+      %ul
+        - @response_rule.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :path
+    = f.text_field :path
+  .field
+    = f.label :response_template
+    = f.select :response_template_id, ResponseTemplate.pluck(:name, :id)
+  .field
+    = f.label :response_code
+    = f.number_field :response_code
+  .field
+    = f.label :conditions
+    = f.text_area :conditions
+  .field
+    = f.label :sleep
+    = f.number_field :sleep
+  .field
+    = f.label :raise_error
+    = f.check_box :raise_error
+  .actions
+    = f.submit 'Save'

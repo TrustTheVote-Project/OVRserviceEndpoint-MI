@@ -10,17 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_014217) do
+ActiveRecord::Schema.define(version: 2020_03_27_021412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "response_rules", force: :cascade do |t|
+    t.string "name"
+    t.string "path"
+    t.bigint "response_template_id", null: false
+    t.integer "response_code"
+    t.text "conditions"
+    t.integer "sleep"
+    t.boolean "raise_error"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["response_template_id"], name: "index_response_rules_on_response_template_id"
+  end
+
   create_table "response_templates", force: :cascade do |t|
     t.string "name"
     t.text "body"
-    t.integer "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "response_rules", "response_templates"
 end
