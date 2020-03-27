@@ -8,7 +8,7 @@
   = @response_rule.path
 %p
   %b Response template:
-  = @response_rule.response_template.name
+  = link_to @response_rule.response_template.name, @response_rule.response_template
 %p
   %b Response code:
   = @response_rule.response_code
