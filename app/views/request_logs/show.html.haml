@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Request path:
+  = @request_log.request_path
+%p
+  %b Request body:
+  %pre
+    = safe_render_json(@request_log.request_body)
+%p
+  %b Response code:
+  = @request_log.response_code
+%p
+  %b Response body:
+  %pre
+    = safe_render_json(@request_log.response_body)
+%p
+  %b Success:
+  = @request_log.success
+%p
+  %b Response template:
+  - if @request_log.response_template
+    = link_to @request_log.response_template.name, @request_log.response_template
+  - else
+    N/A
+%p
+  %b Error text:
+  = @request_log.error_text
+%p
+  %b Created At:
+  = @request_log.created_at
+
+= link_to 'Back', request_logs_path

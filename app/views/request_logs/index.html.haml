@@ -1,0 +1,27 @@
+%h1 Listing request_logs
+
+%table
+  %thead
+    %tr
+      %th Success
+      %th Status
+      %th Path
+      %th Request(bytes)
+      %th Response(bytes)
+      %th Template
+      %th Created At
+      %th Error
+      %th
+
+  %tbody
+    - @request_logs.each do |request_log|
+      %tr
+        %td= request_log.success
+        %td= request_log.response_code
+        %td= request_log.request_path
+        %td= request_log.request_body&.size
+        %td= request_log.response_body&.size
+        %td= link_to request_log.response_template.name, request_log.response_template if request_log.response_template
+        %td= request_log.created_at
+        %td= request_log.error_text
+        %td= link_to 'Show', request_log

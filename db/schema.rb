@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_021412) do
+ActiveRecord::Schema.define(version: 2020_03_30_212804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "request_logs", force: :cascade do |t|
+    t.string "request_path", null: false
+    t.text "request_body"
+    t.string "response_code"
+    t.text "response_body"
+    t.boolean "success"
+    t.bigint "response_template_id"
+    t.string "error_text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["response_template_id"], name: "index_request_logs_on_response_template_id"
+  end
 
   create_table "response_rules", force: :cascade do |t|
     t.string "name"
@@ -35,5 +48,6 @@ ActiveRecord::Schema.define(version: 2020_03_27_021412) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "request_logs", "response_templates"
   add_foreign_key "response_rules", "response_templates"
 end

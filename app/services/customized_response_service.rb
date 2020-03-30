@@ -3,35 +3,49 @@ class CustomizedResponseService
     rules = ResponseRule.where('path ilike ?', request.path)
 
     request_body = begin
-      JSON.parse(request.body.read)
+      JSON.parse(request.body.read.presence || '{}')
     rescue JSON::ParserError
       return error('Not a valid json')
     end
 
     rules = rules.to_a.select { |rule| check(rule, request_body) }
-
     return error('Not found mapping for %s', request.path) if rules.empty?
-    return error('Found too many mappings for %s', request.path) if rules.size > 1
+
+    rules.reject! { |rule| rule.conditions.blank? }  if rules.size > 1
+    return error('Found too many mappings for %s ', request.path) if rules.size > 1
 
     rule = rules.first
     template = rule.response_template
 
     sleep(rule.sleep) if rule.sleep.present?
-    raise '500 response requested' if rule.raise_error
-
-    body = template.body.gsub(/%([^%]+)%/) do |x| 
-      dig_index = parse_dig_index(x[1..-2])
-      request_body.dig(*dig_index)
+    
+    body = if rule.raise_error
+      nil
+    else
+      template.body.gsub(/%([^%]+)%/) do |x| 
+        dig_index = parse_dig_index(x[1..-2])
+        request_body.dig(*dig_index)
+      end
     end
 
-    { json: body, status: rule.response_code }
+    {
+      success: true,
+      raise_error: rule.raise_error,
+      response_template_id: template.id,
+      payload: { 
+        json: body, status: rule.response_code 
+      }
+    }
   end
 
   def self.error(text, params={})
     {
-      json:
-      {
-        error: format(text, params)
+      success: false,
+      payload: {
+        json:
+        {
+          error: format(text, params)
+        }
       }
     }
   end
