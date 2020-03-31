@@ -12,6 +12,7 @@ class CustomizedResponseController < ApplicationController
       error = e
       raise
     ensure
+      request.body.rewind
       RequestLog.create!(
         request_path: request.path,
         request_body: request.body.read,
