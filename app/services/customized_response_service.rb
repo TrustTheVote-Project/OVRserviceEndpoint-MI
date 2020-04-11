@@ -63,13 +63,18 @@ class CustomizedResponseService
 
     rule.conditions.split("\n").map(&:strip).all? do |condition|
       next if condition.blank?
-      values = condition.split('=')
+      values = condition.split(/(\!?=)/)
       predicate = values[0]
-      expected_value = values[1]
+      operator = values[1]
+      expected_value = values[2]
       dig_index = parse_dig_index(predicate)
       value = request_body.dig(*dig_index)
 
-      value.to_s == expected_value
+      if operator == '='
+        value.to_s == expected_value
+      else # operator == '!='
+        value.to_s != expected_value
+      end
     end 
   end
 end
