@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: mi_fake_server_production
-  username: mi_fake_server
-  password: <%= ENV['MI_FAKE_SERVER_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  # database: mi_fake_server_production
+  # username: mi_fake_server
+  # password: <%= ENV['MI_FAKE_SERVER_DATABASE_PASSWORD'] %>
